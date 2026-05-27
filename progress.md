@@ -18,21 +18,22 @@
 - Перейменували основну гілку на `main`.
 - Додали remote `origin`: `https://github.com/betadecision/django-store`.
 - Створили перший коміт: `848da2a Initial commit`.
+- Створили Django backend skeleton у `project/`.
+- Винесли Django settings у структуру `settings/base.py`, `settings/dev.py`, `settings/test.py`.
 
 ### Поточний стан
 
-- Backend ще не створений.
+- Backend skeleton створений.
 - Frontend ще не створений.
 - Git працює локально, перший коміт створений.
 - Product/order модель має враховувати змішаний формат магазину, а не бути прив'язаною тільки до фізичних товарів.
 
 ### Наступні кроки
 
-- Запушити `main` на GitHub, якщо ще не зроблено: `git push -u origin main`.
-- Узгодити план розробки в `plan.md`.
-- Створити Django backend-проєкт.
+- Запушити локальні коміти на GitHub, якщо ще не зроблено: `git push`.
+- Додати перший smoke test для backend.
+- Перевірити запуск dev server.
 - Створити React + Vite + TypeScript frontend-проєкт.
-- Додати базовий `README.md` з командами запуску.
 
 ### Відкриті питання
 
@@ -41,4 +42,4 @@
 
 ### Git checkpoint
 
-Перший коміт створений. Наступний checkpoint: після створення backend/frontend skeleton.
+Наступний checkpoint: після завершення backend skeleton.

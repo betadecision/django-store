@@ -17,7 +17,10 @@ shop/
   project/
     manage.py
     django_store/
-      settings.py
+      settings/
+        base.py
+        dev.py
+        test.py
       urls.py
       asgi.py
       wsgi.py
@@ -30,6 +33,8 @@ shop/
 ```
 
 ## Setup
+
+By default, `project/manage.py` uses `django_store.settings.dev`.
 
 Install dependencies:
 
