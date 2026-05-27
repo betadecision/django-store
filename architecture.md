@@ -18,8 +18,8 @@
 
 ### Backend
 
-- Python 3.14
-- Django 6.0.5
+- Python: зафіксовано в `.python-version`
+- Django та Python-залежності: зафіксовано в `pyproject.toml` і `uv.lock`
 - Django REST Framework
 - PostgreSQL
 - Redis для кешу, фонових задач і майбутнього rate limiting
@@ -27,7 +27,7 @@
 - pytest, pytest-django, factory-boy
 - Ruff для linting і formatting
 
-Чому так: це фактичний стек, який зараз стоїть у проєкті через `.python-version`, `pyproject.toml` і `uv.lock`. Django дає auth, admin, ORM, migrations, security defaults і зрілу екосистему. DRF робить API явним і звичним. PostgreSQL є надійним дефолтом для commerce-даних.
+Чому так: Django дає auth, admin, ORM, migrations, security defaults і зрілу екосистему. DRF робить API явним і звичним. PostgreSQL є надійним дефолтом для commerce-даних.
 
 ### Frontend
 
@@ -57,25 +57,20 @@ GraphQL не обираємо для v1, бо домен нормально ст
 
 ```text
 shop/
-  backend/
+  project/
     manage.py
-    config/
-    apps/
-      catalog/
-      carts/
-      orders/
-      accounts/
-      payments/
+    django_store/
   frontend/
     src/
       app/
       features/
       shared/
-  docs/
   agents.md
   architecture.md
   plan.md
   progress.md
+  pyproject.toml
+  uv.lock
 ```
 
 Пізніше ці документи можна перенести в `docs/`, якщо root стане шумним. Зараз root-level docs легше знайти.
