@@ -228,7 +228,7 @@ Frontend:
 
 ## Джерела для версій
 
-- У проєкті зараз зафіксовано Python 3.14: `.python-version`
-- У проєкті зараз зафіксовано Django 6.0.5: `pyproject.toml` і `uv.lock`
+- У проєкті зараз зафіксовано Python 3.12: `.python-version`
+- У проєкті зараз зафіксовано Django 5.2.x: `pyproject.toml` і `uv.lock`
 - Django REST Framework підтримує Django 4.2-6.0 і Python 3.10-3.14: https://www.django-rest-framework.org/
 - React 19 стабільний реліз: https://react.dev/blog/2024/12/05/react-19
