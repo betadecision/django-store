@@ -7,7 +7,7 @@ from .views import ProductViewSet
 
 
 router = DefaultRouter()
-router.register("categories", CategoryViewSet, basename="category")
+router.register("categories", CategoryViewSet, basename="category") 
 router.register("products", ProductViewSet, basename="product")
 
 
