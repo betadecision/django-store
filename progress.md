@@ -43,3 +43,34 @@
 ### Git checkpoint
 
 Наступний checkpoint: після завершення backend skeleton.
+
+## 2026-06-08
+
+### Зроблено
+
+- Повернули `catalog` API на класові DRF views після тренування функціональних views.
+- `CategoryViewSet` працює як read-only endpoint для активних категорій.
+- `ProductViewSet` працює як read-only endpoint для активних продуктів.
+- Detail endpoints використовують `slug`.
+- Для продуктів додано фільтр за категорією через query parameter: `?category=<category-slug>`.
+- `catalog.urls` знову використовує `DefaultRouter`:
+  - `/api/categories/`
+  - `/api/categories/<slug>/`
+  - `/api/products/`
+  - `/api/products/<slug>/`
+
+### Поточний стан
+
+- `catalog` має моделі, admin, serializers, read-only API і базові тести.
+- Контент каталогу поки логічно керується через Django admin, а API тільки віддає дані.
+- Функціональні views були корисні як практика, але фінальний варіант для цього етапу повернули до `ReadOnlyModelViewSet`.
+
+### Наступні кроки
+
+- Перевірити API вручну в браузері або DRF browsable API.
+- За потреби додати API tests для списку продуктів, detail по `slug` і фільтра `?category=`.
+- Після перевірки зробити Git checkpoint для catalog API.
+
+### Git checkpoint
+
+Доречний commit message після перевірки: `Add read-only catalog API`.

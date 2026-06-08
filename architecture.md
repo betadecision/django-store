@@ -93,6 +93,14 @@ shop/
 - життєвий цикл замовлення;
 - стан платежу.
 
+Поточна реалізація `catalog`:
+
+- `CategoryViewSet` і `ProductViewSet` на базі DRF `ReadOnlyModelViewSet`;
+- API тільки для читання: list і detail;
+- detail endpoints шукають об'єкти по `slug`;
+- продукти фільтруються за активністю і можуть фільтруватися через `?category=<category-slug>`;
+- створення й редагування товарів та категорій іде через Django admin.
+
 ### `carts`
 
 Відповідає за:
@@ -146,7 +154,9 @@ shop/
 ```text
 GET    /api/products/
 GET    /api/products/{slug}/
+GET    /api/products/?category={category-slug}
 GET    /api/categories/
+GET    /api/categories/{slug}/
 
 GET    /api/cart/
 POST   /api/cart/items/

@@ -27,10 +27,11 @@
    - Не зав'язувати модель тільки на доставку фізичних товарів.
 
 4. Побудувати перший backend vertical slice.
-   - Моделі catalog.
-   - Django admin для catalog.
-   - API endpoints для списку товарів і detail-сторінки.
-   - API tests для базової поведінки.
+   - Моделі catalog. Готово.
+   - Django admin для catalog. Готово.
+   - Read-only API endpoints для списку товарів, detail-сторінки і категорій. Готово.
+   - Фільтр продуктів за категорією через `?category=<slug>`. Готово.
+   - API tests для базової поведінки. В роботі.
 
 5. Створити frontend skeleton.
    - React + Vite + TypeScript у `frontend/`.

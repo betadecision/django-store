@@ -66,6 +66,26 @@ Create admin user:
 uv run python project/manage.py createsuperuser
 ```
 
+## Backend API
+
+Catalog endpoints are exposed under `/api/`:
+
+```text
+GET /api/categories/
+GET /api/categories/<slug>/
+GET /api/products/
+GET /api/products/<slug>/
+GET /api/products/?category=<category-slug>
+```
+
+The current catalog API is read-only. Product and category content is managed through Django admin.
+
+Run catalog tests:
+
+```bash
+uv run python project/manage.py test catalog
+```
+
 ## Dependencies
 
 Add a Python package:
