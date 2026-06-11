@@ -6,7 +6,6 @@ from decimal import Decimal
 from django.db.models.deletion import ProtectedError
 from django.test import TestCase
 from django.urls import reverse
-from django.shortcuts import get_object_or_404
 
 from .models import Category
 from .models import Product
@@ -70,22 +69,18 @@ class ProductAPITests(TestCase):
         self.notebook_category = Category.objects.create(name="notebook", slug="notebook")
         self.videocard_category = Category.objects.create(name="videocard", slug="videocard")
         self.mp3_player_category = Category.objects.create(name="mp3player", slug="mp3-player", is_active=False)
-        Product.objects.create(name="zenbook", price=Decimal(10.3), slug="asus-zenbook", category=self.notebook_category)
-        Product.objects.create(name="xduo", price=Decimal(14.5), slug="xduo", category=self.mp3_player_category)
-        Product.objects.create(name="asus", price=Decimal(15.5), slug="asus", category=self.videocard_category)
-
-
-        
-        
-
+        Product.objects.create(name="zenbook", price=Decimal("10.30"), slug="asus-zenbook", category=self.notebook_category)
+        Product.objects.create(name="xduo", price=Decimal("14.50"), slug="xduo", category=self.mp3_player_category)
+        Product.objects.create(name="asus", price=Decimal("15.50"), slug="asus", category=self.videocard_category)
+        Product.objects.create(name="TUF", price=Decimal("14.70"), slug="TUF", category=self.notebook_category, is_active=False)
 
     def test_product_list_returns_active_products(self):
         url = reverse("product-list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn("zenbook", [item["name"] for item in response.data])
+        self.assertNotIn("xduo", [item["name"] for item in response.data])
         self.assertNotIn("TUF", [item["name"] for item in response.data])
-
 
     def test_product_list_returns_active_categories(self):
         url = reverse("category-list")
@@ -94,24 +89,22 @@ class ProductAPITests(TestCase):
         self.assertIn("videocard", [item["name"] for item in response.data])
         self.assertNotIn("mp3player", [item["name"] for item in response.data])
 
-        
     def test_product_list_filtered_by_category(self):
         url = reverse("product-list")
-        response = self.client.get(url, {"category":"notebook"})
+        response = self.client.get(url, {"category": "notebook"})
         self.assertIn("zenbook", [item["name"] for item in response.data])
         self.assertNotIn("TUF", [item["name"] for item in response.data])
 
-    
-    def test_search_by_slug(self):
+    def test_product_detail_returns_only_active_products_from_active_categories(self):
         url = reverse("product-detail", kwargs={"slug": "asus-zenbook"})
         response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual("asus-zenbook", response.data["slug"])
 
+        url = reverse("product-detail", kwargs={"slug": "TUF"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
-
-
-
-
-        
-        
-        
+        url = reverse("product-detail", kwargs={"slug": "xduo"})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

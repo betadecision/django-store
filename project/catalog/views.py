@@ -17,7 +17,7 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = "slug"
 
     def get_queryset(self):
-        queryset = Product.objects.filter(is_active=True).select_related("category")
+        queryset = Product.objects.filter(category__is_active=True, is_active=True).select_related("category")
         category_slug = self.request.query_params.get("category")
 
         if category_slug:
