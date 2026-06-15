@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Import the models that should be visible in the Django admin site.
-from .models import Category
-from .models import Product
+from .models import Category, Product
 
 
 # Register Category and connect it to the custom CategoryAdmin options below.
@@ -38,3 +37,5 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
     # Fields used by the admin search box.
     search_fields = ("name", "slug", "description")
+
+
