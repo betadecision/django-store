@@ -74,3 +74,44 @@
 ### Git checkpoint
 
 Доречний commit message після перевірки: `Add read-only catalog API`.
+
+## 2026-07-09
+
+### Зроблено
+
+- Додали frontend skeleton у `frontend/` на React + Vite + TypeScript.
+- Додали React Router і TanStack Query.
+- Створили базову структуру:
+  - `src/app/`
+  - `src/features/catalog/`
+  - `src/shared/api/`
+  - `src/shared/types/`
+- Перший екран frontend показує каталог і читає backend endpoints:
+  - `/api/categories/`
+  - `/api/products/`
+  - `/api/products/?category=<category-slug>`
+- Додали Vite proxy для `/api` і `/media` на Django dev server `http://127.0.0.1:8000`.
+- Додали order API validation tests і заборонили порожній список `items` при створенні замовлення.
+- Оновили `.gitignore` для локальних кешів, frontend build/cache файлів і agent-папок.
+
+### Поточний стан
+
+- Backend має read-only catalog API і basic order creation API.
+- Frontend skeleton створений і має робочий catalog screen.
+- Frontend поки тільки читає каталог; cart і checkout ще не створені.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`
+
+### Наступні кроки
+
+- Перевірити frontend вручну разом із Django dev server.
+- Додати cart flow у frontend/backend або спочатку зробити product detail screen, якщо він потрібен перед cart.
+- Після перевірки зробити Git checkpoint для frontend skeleton.
+
+### Git checkpoint
+
+Доречний commit message після перевірки: `Create React frontend skeleton`.

@@ -31,12 +31,12 @@
    - Django admin для catalog. Готово.
    - Read-only API endpoints для списку товарів, detail-сторінки і категорій. Готово.
    - Фільтр продуктів за категорією через `?category=<slug>`. Готово.
-   - API tests для базової поведінки. В роботі.
+   - API tests для базової поведінки catalog і orders. Готово.
 
 5. Створити frontend skeleton.
-   - React + Vite + TypeScript у `frontend/`.
-   - Router, базова структура `app/`, `features/`, `shared/`.
-   - Перший екран каталогу, який читає backend API.
+   - React + Vite + TypeScript у `frontend/`. Готово.
+   - Router, базова структура `app/`, `features/`, `shared/`. Готово.
+   - Перший екран каталогу, який читає backend API. Готово.
 
 6. Додати cart і guest checkout.
    - Анонімний кошик.
