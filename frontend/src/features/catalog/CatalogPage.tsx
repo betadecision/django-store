@@ -6,28 +6,11 @@ import {
   RefreshCw,
   ShoppingBag,
 } from 'lucide-react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import type { Product } from '../../shared/types/catalog'
 import { getCategories, getProducts } from './api'
-
-const currencyFormatter = new Intl.NumberFormat('uk-UA', {
-  style: 'currency',
-  currency: 'UAH',
-  minimumFractionDigits: 2,
-})
-
-function formatPrice(price: string) {
-  return currencyFormatter.format(Number(price))
-}
-
-function resolveImageUrl(image: string | null) {
-  if (!image) {
-    return null
-  }
-
-  return image
-}
+import { formatPrice, resolveImageUrl } from './formatters'
 
 export function CatalogPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -147,7 +130,7 @@ function ProductCard({ product }: { product: Product }) {
   const hasStock = product.stock_quantity > 0
 
   return (
-    <article className="product-card">
+    <Link className="product-card" to={`/products/${product.slug}`}>
       <div className="product-media">
         {imageUrl ? (
           <img src={imageUrl} alt={product.name} loading="lazy" />
@@ -173,7 +156,7 @@ function ProductCard({ product }: { product: Product }) {
           <span>{hasStock ? 'Available' : 'Unavailable'}</span>
         </div>
       </div>
-    </article>
+    </Link>
   )
 }
 

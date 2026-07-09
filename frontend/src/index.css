@@ -182,12 +182,28 @@ h3 {
 }
 
 .product-card {
+  display: block;
   min-width: 0;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
+  color: inherit;
   box-shadow: var(--shadow);
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.product-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.product-card:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 3px;
 }
 
 .product-media {
@@ -312,6 +328,77 @@ h3 {
   color: var(--muted);
 }
 
+.product-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 18px;
+}
+
+.detail-media,
+.detail-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.detail-media {
+  display: grid;
+  min-height: 420px;
+  place-items: center;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.1), transparent 45%),
+    var(--surface-muted);
+}
+
+.detail-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 24px;
+}
+
+.detail-panel h2 {
+  margin-top: 6px;
+  font-size: 28px;
+}
+
+.detail-description {
+  color: var(--muted);
+}
+
+.detail-meta {
+  display: grid;
+  gap: 10px;
+  margin: auto 0 0;
+}
+
+.detail-meta div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 0;
+  border-top: 1px solid var(--border);
+}
+
+.detail-meta dt {
+  color: var(--muted);
+}
+
+.detail-meta dd {
+  margin: 0;
+  font-weight: 800;
+  text-align: right;
+}
+
 .text-button {
   display: inline-flex;
   min-height: 38px;
@@ -374,6 +461,14 @@ h3 {
 
   .product-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-media {
+    min-height: 320px;
   }
 }
 

@@ -20,3 +20,7 @@ export function getProducts({ categorySlug }: GetProductsParams = {}) {
 
   return fetchJson<Product[]>(`/api/products/${query ? `?${query}` : ''}`)
 }
+
+export function getProduct(slug: string) {
+  return fetchJson<Product>(`/api/products/${slug}/`)
+}

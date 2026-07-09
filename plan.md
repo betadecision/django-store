@@ -90,17 +90,17 @@ Checkpoint: `Create React frontend skeleton`.
 
 Checkpoint: `Add development catalog seed data`.
 
-### 4. Catalog storefront polish
+### 4. Catalog storefront polish - готово
 
 Мета: каталог має бути зручним як перший реальний екран магазину.
 
-- Додати product detail route: `/products/:slug`.
-- Додати link з product card на detail.
-- На detail показати category, description, stock, price.
-- Додати кнопку add to cart, поки без checkout logic.
-- Перевірити loading, empty і error states.
+- Додати product detail route: `/products/:slug`. Готово.
+- Додати link з product card на detail. Готово.
+- На detail показати category, description, stock, price. Готово.
+- Перевірити loading, empty і error states. Готово.
+- Кнопку add to cart переносимо в cart checkpoint, щоб вона одразу мала реальну поведінку.
 
-Planned commit: `Add product detail screen`.
+Checkpoint: `Add product detail screen`.
 
 ### 5. Client-side cart
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 4: `Catalog storefront polish`.
+Починаємо з checkpoint 5: `Client-side cart`.

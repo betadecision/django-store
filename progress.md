@@ -166,3 +166,28 @@
 - Додати product detail route `/products/:slug`.
 - Додати link з product card на detail screen.
 - Додати кнопку add to cart на detail як підготовку до cart flow.
+
+## 2026-07-09 - Product detail screen
+
+### Зроблено
+
+- Додали frontend API helper для `GET /api/products/<slug>/`.
+- Додали route `/products/:slug`.
+- Додали `ProductDetailPage`.
+- Product cards у catalog тепер ведуть на detail screen.
+- Винесли форматування ціни й image URL helper у `features/catalog/formatters.ts`.
+- Додали loading і error states для detail screen.
+
+### Поточний стан
+
+- Catalog storefront має list, category filter і product detail.
+- Кнопку add to cart переносимо в наступний checkpoint, щоб не створювати нефункціональну UI-дію.
+- Наступний implementation checkpoint: `Client-side cart`.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`
+- HTTP: `GET /api/products/zenbook-air-14/`
+- HTTP: `GET /products/zenbook-air-14`
