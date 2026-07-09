@@ -155,14 +155,14 @@ Checkpoint: `Improve order admin and validation`.
 
 Checkpoint: `Add frontend flow tests`.
 
-### 9. MVP docs and manual QA
+### 9. MVP docs and manual QA - готово
 
 Мета: зафіксувати, як запустити й перевірити проект.
 
-- README: повний local run flow.
-- README: seed data, backend server, frontend server.
-- progress.md: MVP status, known gaps.
-- Manual QA checklist:
+- README: повний local run flow. Готово.
+- README: seed data, backend server, frontend server. Готово.
+- progress.md: MVP status, known gaps. Готово.
+- Manual QA checklist. Готово:
   - admin creates products;
   - catalog shows products;
   - category filter works;
@@ -171,7 +171,7 @@ Checkpoint: `Add frontend flow tests`.
   - checkout creates order;
   - order visible in admin.
 
-Planned commit: `Document MVP runbook`.
+Checkpoint: `Document MVP runbook`.
 
 ## Після MVP
 
@@ -188,6 +188,6 @@ Planned commit: `Document MVP runbook`.
 - E2E tests with Playwright;
 - PostgreSQL/Redis/Docker Compose local stack.
 
-## Поточний наступний крок
+## Поточний стан
 
-Починаємо з checkpoint 9: `MVP docs and manual QA`.
+Usable MVP flow готовий. Наступні роботи переходять у секцію `Після MVP` або в окремо обрані polish tasks.

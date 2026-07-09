@@ -313,3 +313,39 @@
 - Frontend: `npm test`
 - Frontend: `npm run build`
 - Frontend: `npm run lint`
+
+## 2026-07-09 - MVP runbook
+
+### Зроблено
+
+- Оновили README повним MVP runbook:
+  - backend setup;
+  - seed demo catalog data;
+  - backend server;
+  - frontend server;
+  - local URLs;
+  - MVP flow checklist;
+  - verification commands.
+- Додали MVP scope:
+  - що входить у поточний usable MVP;
+  - що ще не входить і лишається post-MVP.
+- Оновили `plan.md`: checkpoint 9 позначений готовим.
+
+### Поточний стан
+
+- Usable MVP flow реалізований:
+  - catalog;
+  - product detail;
+  - cart;
+  - guest checkout;
+  - order creation;
+  - admin/catalog/order management.
+- Post-MVP напрямки: payments, delivery integration, accounts, deployment, server-side cart API.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Backend: `uv run python project/manage.py makemigrations --check --dry-run`
+- Frontend: `npm test`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`

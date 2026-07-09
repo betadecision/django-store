@@ -42,6 +42,60 @@ shop/
 
 By default, `project/manage.py` uses `django_store.settings.dev`.
 
+## MVP Runbook
+
+Start backend:
+
+```bash
+uv sync
+uv run python project/manage.py migrate
+uv run python project/manage.py seed_dev_data
+uv run python project/manage.py runserver
+```
+
+Start frontend in another terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open:
+
+```text
+Frontend: http://127.0.0.1:5173/
+Backend admin: http://127.0.0.1:8000/admin/
+Products API: http://127.0.0.1:8000/api/products/
+```
+
+MVP flow:
+
+1. Open the catalog.
+2. Filter products by category.
+3. Open a product detail page.
+4. Add products to the cart.
+5. Open the cart.
+6. Change quantity or remove an item.
+7. Go to checkout.
+8. Submit email, full name, and phone.
+9. Confirm that the success page shows the order id and total.
+10. Confirm that the order is visible in Django admin.
+
+Verification commands:
+
+```bash
+uv run python project/manage.py test catalog orders
+uv run python project/manage.py makemigrations --check --dry-run
+```
+
+```bash
+cd frontend
+npm test
+npm run build
+npm run lint
+```
+
 ### Backend
 
 Install dependencies:
@@ -130,6 +184,26 @@ POST /api/orders/
 
 The current catalog API is read-only. Product and category content is managed through Django admin.
 Orders can be created through the API and store item price/name snapshots.
+
+## MVP Scope
+
+Included:
+
+- catalog list and category filter;
+- product detail page;
+- client-side cart with local persistence;
+- guest checkout;
+- order creation through the backend API;
+- order snapshots for product name, price, quantity, and line total;
+- Django admin management for catalog and orders.
+
+Not included yet:
+
+- online payments;
+- delivery provider integration;
+- user accounts;
+- production deployment;
+- server-side cart API.
 
 Run backend tests:
 
