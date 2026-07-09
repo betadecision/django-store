@@ -23,12 +23,14 @@ class OrderModelTests(TestCase):
             price=Decimal("10.30"),
             slug="asus-zenbook",
             category=self.notebook_category,
+            stock_quantity=10,
         )
         self.product_2 = Product.objects.create(
             name="TUF",
             price=Decimal("10.40"),
             slug="asus-tuf",
             category=self.notebook_category,
+            stock_quantity=10,
         )
         self.order = Order.objects.create(
             email="zinaidamonster@gmail.com",
@@ -102,6 +104,29 @@ class OrderModelTests(TestCase):
 
         self.assertEqual(self.order.status, Order.Status.CANCELLED)
 
+    def test_create_order_requires_items(self):
+        with self.assertRaises(ValueError):
+            create_order(
+                email="decisionbeta@gmail.com",
+                full_name="eugen",
+                phone="3603045345",
+                items=[],
+            )
+
+    def test_create_order_rejects_quantity_above_stock(self):
+        with self.assertRaises(ValueError):
+            create_order(
+                email="decisionbeta@gmail.com",
+                full_name="eugen",
+                phone="3603045345",
+                items=[
+                    {
+                        "product": self.product,
+                        "quantity": 11,
+                    },
+                ],
+            )
+
 
 class OrderAPITests(TestCase):
     def setUp(self):
@@ -112,6 +137,7 @@ class OrderAPITests(TestCase):
             price=Decimal("10.30"),
             slug="asus-zenbook",
             category=self.category,
+            stock_quantity=5,
         )
 
     def test_create_order_endpoint_creates_order(self):
@@ -148,6 +174,75 @@ class OrderAPITests(TestCase):
                 "email": "decisionbeta@gmail.com",
                 "full_name": "eugen",
                 "phone": "3603045345",
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_out_of_stock_product(self):
+        self.product.stock_quantity = 0
+        self.product.save()
+
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 1,
+                    },
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_quantity_above_stock(self):
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 6,
+                    },
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_product_from_inactive_category(self):
+        self.category.is_active = False
+        self.category.save()
+
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 1,
+                    },
+                ],
             },
             format="json",
         )

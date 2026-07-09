@@ -132,17 +132,17 @@ Checkpoint: `Add client-side cart flow`.
 
 Checkpoint: `Add guest checkout flow`.
 
-### 7. Backend order/admin hardening
+### 7. Backend order/admin hardening - готово
 
 Мета: order flow достатньо надійний для MVP demo.
 
-- Перевірити Django admin для orders і order items.
-- За потреби покращити admin list/detail display.
-- Додати backend validation, якщо потрібні inventory rules.
-- Додати tests для edge cases checkout/order creation.
-- Перевірити, що inactive products не проходять у checkout.
+- Перевірити Django admin для orders і order items. Готово.
+- За потреби покращити admin list/detail display. Готово.
+- Додати backend validation, якщо потрібні inventory rules. Готово.
+- Додати tests для edge cases checkout/order creation. Готово.
+- Перевірити, що inactive products не проходять у checkout. Готово.
 
-Planned commit: `Improve order admin and validation`.
+Checkpoint: `Improve order admin and validation`.
 
 ### 8. Frontend quality pass
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 7: `Backend order/admin hardening`.
+Починаємо з checkpoint 8: `Frontend quality pass`.

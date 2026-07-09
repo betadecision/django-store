@@ -257,3 +257,32 @@
 - HTTP: `POST /api/orders/`
 - HTTP: `GET /checkout`
 - HTTP: `GET /checkout/success?order=1&total=39999.00`
+
+## 2026-07-09 - Order admin and validation
+
+### Зроблено
+
+- Покращили Django admin для orders:
+  - item count у списку orders;
+  - readonly total/time fields;
+  - readonly order item snapshots в inline;
+  - search/filter для order items.
+- Посилили order validation:
+  - checkout приймає тільки active products;
+  - product category також має бути active;
+  - stock має бути більше 0;
+  - quantity не може перевищувати stock.
+- Додали service-level guards для `create_order`.
+- Додали backend tests для edge cases.
+
+### Поточний стан
+
+- Backend order creation краще захищений від некоректних прямих API викликів.
+- Наступний implementation checkpoint: `Frontend quality pass`.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Backend: `uv run python project/manage.py makemigrations --check --dry-run`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`

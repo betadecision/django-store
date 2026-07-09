@@ -5,12 +5,22 @@ from .models import Order, OrderItem
 
 @transaction.atomic
 def create_order(*, email, full_name, phone, items):
+    if not items:
+        raise ValueError("Order must include at least one item.")
+
     total_amount = 0
     order_items = []
 
     for item in items:
         product = item["product"]
         quantity = item["quantity"]
+
+        if quantity < 1:
+            raise ValueError("Order item quantity must be at least 1.")
+
+        if quantity > product.stock_quantity:
+            raise ValueError(f"{product.name} has only {product.stock_quantity} item(s) in stock.")
+
         line_total = product.price * quantity
 
         total_amount += line_total

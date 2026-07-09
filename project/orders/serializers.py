@@ -7,7 +7,13 @@ from .services import create_order
 
 
 class CreateOrderItemSerializer(serializers.Serializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.filter(is_active=True))
+    product = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.filter(
+            category__is_active=True,
+            is_active=True,
+            stock_quantity__gt=0,
+        )
+    )
     quantity = serializers.IntegerField(min_value=1)
 
 
@@ -36,4 +42,16 @@ class CreateOrderSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return create_order(**validated_data)
+
+    def validate_items(self, items):
+        for item in items:
+            product = item["product"]
+            quantity = item["quantity"]
+
+            if quantity > product.stock_quantity:
+                raise serializers.ValidationError(
+                    f"{product.name} has only {product.stock_quantity} item(s) in stock."
+                )
+
+        return items
 
