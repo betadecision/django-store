@@ -15,7 +15,7 @@ class CreateOrderSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     full_name = serializers.CharField(max_length=100)
     phone = serializers.CharField(max_length=40)
-    items = CreateOrderItemSerializer(many=True)
+    items = CreateOrderItemSerializer(many=True, allow_empty=False)
 
     class Meta:
         model = Order

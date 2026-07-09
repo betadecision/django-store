@@ -137,3 +137,82 @@ class OrderAPITests(TestCase):
         order = Order.objects.get()
         self.assertEqual(order.total_amount, Decimal("20.60"))
         self.assertEqual(order.items.count(), 1)
+        self.assertEqual(response.data["id"], order.id)
+        self.assertEqual(response.data["status"], Order.Status.NEW)
+        self.assertEqual(response.data["total_amount"], "20.60")
+
+    def test_create_order_endpoint_requires_items(self):
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_empty_items(self):
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_zero_quantity(self):
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 0,
+                    },
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
+
+    def test_create_order_endpoint_rejects_inactive_product(self):
+        self.product.is_active = False
+        self.product.save()
+
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 2,
+                    },
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(Order.objects.count(), 0)
+        self.assertIn("items", response.data)
