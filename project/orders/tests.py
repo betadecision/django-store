@@ -1,6 +1,9 @@
 from decimal import Decimal
 
 from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
 
 from catalog.models import Category, Product
 from .models import Order, OrderItem
@@ -98,3 +101,39 @@ class OrderModelTests(TestCase):
         self.order.refresh_from_db()
 
         self.assertEqual(self.order.status, Order.Status.CANCELLED)
+
+
+class OrderAPITests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.category = Category.objects.create(name="notebook", slug="notebook")
+        self.product = Product.objects.create(
+            name="zenbook",
+            price=Decimal("10.30"),
+            slug="asus-zenbook",
+            category=self.category,
+        )
+
+    def test_create_order_endpoint_creates_order(self):
+        response = self.client.post(
+            reverse("order-create"),
+            {
+                "email": "decisionbeta@gmail.com",
+                "full_name": "eugen",
+                "phone": "3603045345",
+                "items": [
+                    {
+                        "product": self.product.id,
+                        "quantity": 2,
+                    },
+                ],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Order.objects.count(), 1)
+
+        order = Order.objects.get()
+        self.assertEqual(order.total_amount, Decimal("20.60"))
+        self.assertEqual(order.items.count(), 1)
