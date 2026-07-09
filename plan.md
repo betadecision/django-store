@@ -144,16 +144,16 @@ Checkpoint: `Add guest checkout flow`.
 
 Checkpoint: `Improve order admin and validation`.
 
-### 8. Frontend quality pass
+### 8. Frontend quality pass - готово
 
 Мета: зменшити ризик регресій перед MVP checkpoint.
 
-- Додати Vitest + React Testing Library, якщо tests дадуть реальну користь.
-- Мінімум покрити cart calculations і checkout payload mapping.
-- Перевірити responsive layout.
-- Перевірити keyboard/focus states для cart і checkout.
+- Додати Vitest, якщо tests дадуть реальну користь. Готово.
+- Мінімум покрити cart calculations і checkout payload mapping. Готово.
+- Перевірити responsive layout. Частково через build/manual HTTP; детальніше в manual QA.
+- Перевірити keyboard/focus states для cart і checkout. Базові focus states є; детальніше в manual QA.
 
-Planned commit: `Add frontend flow tests`.
+Checkpoint: `Add frontend flow tests`.
 
 ### 9. MVP docs and manual QA
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 8: `Frontend quality pass`.
+Починаємо з checkpoint 9: `MVP docs and manual QA`.

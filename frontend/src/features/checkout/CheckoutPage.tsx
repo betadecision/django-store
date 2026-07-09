@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../cart/useCart'
 import { formatPrice } from '../catalog/formatters'
 import { createOrder } from './api'
+import { cartItemsToOrderItems } from './payload'
 
 export function CheckoutPage() {
   const { clearCart, itemCount, items, totalAmount } = useCart()
@@ -37,10 +38,7 @@ export function CheckoutPage() {
       email,
       full_name: fullName,
       phone,
-      items: items.map((item) => ({
-        product: item.productId,
-        quantity: item.quantity,
-      })),
+      items: cartItemsToOrderItems(items),
     })
   }
 

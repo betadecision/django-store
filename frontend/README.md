@@ -36,6 +36,12 @@ Lint:
 npm run lint
 ```
 
+Test:
+
+```bash
+npm test
+```
+
 The Vite dev server proxies `/api` and `/media` to the Django backend at `http://127.0.0.1:8000`.
 
 ## Structure

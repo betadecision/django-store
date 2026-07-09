@@ -286,3 +286,30 @@
 - Backend: `uv run python project/manage.py makemigrations --check --dry-run`
 - Frontend: `npm run build`
 - Frontend: `npm run lint`
+
+## 2026-07-09 - Frontend quality pass
+
+### Зроблено
+
+- Додали Vitest.
+- Додали `npm test`.
+- Винесли cart calculations у pure helpers.
+- Винесли checkout payload mapping у pure helper.
+- Додали frontend unit tests:
+  - cart item count;
+  - cart total amount;
+  - quantity clamping;
+  - checkout payload mapping.
+- Оновили README з frontend test command.
+
+### Поточний стан
+
+- Frontend має перші швидкі unit tests для ключової cart/checkout логіки.
+- Наступний implementation checkpoint: `MVP docs and manual QA`.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Frontend: `npm test`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`

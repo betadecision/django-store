@@ -11,6 +11,11 @@ import { CartContext } from './cartContext'
 import type { CartContextValue } from './cartContext'
 import { productToCartItem } from './types'
 import type { CartItem } from './types'
+import {
+  clampQuantity,
+  getCartItemCount,
+  getCartTotalAmount,
+} from './utils'
 
 const CART_STORAGE_KEY = 'django-store-cart'
 
@@ -50,14 +55,6 @@ function loadCartItems() {
   } catch {
     return []
   }
-}
-
-function clampQuantity(quantity: number, stockQuantity: number) {
-  if (stockQuantity <= 0) {
-    return 0
-  }
-
-  return Math.min(Math.max(quantity, 1), stockQuantity)
 }
 
 type CartProviderProps = {
@@ -121,11 +118,8 @@ export function CartProvider({ children }: CartProviderProps) {
   }, [])
 
   const value = useMemo<CartContextValue>(() => {
-    const itemCount = items.reduce((total, item) => total + item.quantity, 0)
-    const totalAmount = items.reduce(
-      (total, item) => total + Number(item.price) * item.quantity,
-      0,
-    )
+    const itemCount = getCartItemCount(items)
+    const totalAmount = getCartTotalAmount(items)
 
     return {
       items,
