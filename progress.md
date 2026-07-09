@@ -115,3 +115,31 @@
 ### Git checkpoint
 
 Доречний commit message після перевірки: `Create React frontend skeleton`.
+
+## 2026-07-09 - Roadmap to MVP
+
+### Зроблено
+
+- Узгодили, що далі рухаємось послідовно по всьому проекту до usable MVP.
+- Оновили `plan.md` з повним roadmap:
+  - local demo data;
+  - product detail;
+  - client-side cart;
+  - guest checkout;
+  - order/admin hardening;
+  - frontend quality pass;
+  - MVP docs and manual QA.
+- Для v1 вирішили не блокуватися на backend cart API: кошик робимо на frontend, а фінальне замовлення створюємо через вже наявний `POST /api/orders/`.
+
+### Поточний стан
+
+- Поточна гілка: `feature/catalog-orders`.
+- Backend і frontend skeleton checkpoints вже запушені.
+- Наступний implementation checkpoint: `Local demo data`.
+
+### Наступні кроки
+
+- Додати management command для повторюваного seed dev catalog data.
+- Оновити README з командою seed.
+- Перевірити backend tests, frontend build і frontend lint.
+- Закомітити й запушити checkpoint: `Add development catalog seed data`.
