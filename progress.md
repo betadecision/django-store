@@ -191,3 +191,33 @@
 - Frontend: `npm run lint`
 - HTTP: `GET /api/products/zenbook-air-14/`
 - HTTP: `GET /products/zenbook-air-14`
+
+## 2026-07-09 - Client-side cart
+
+### Зроблено
+
+- Додали `features/cart`.
+- Додали `CartProvider` з localStorage persistence.
+- Додали cart hook і cart context.
+- Додали cart link з item count у catalog і product detail headers.
+- Додали add-to-cart buttons у catalog cards і product detail.
+- Додали route `/cart`.
+- Додали cart page:
+  - список позицій;
+  - quantity increase/decrease;
+  - remove item;
+  - clear cart;
+  - items count;
+  - total amount.
+
+### Поточний стан
+
+- Покупець може зібрати кошик і змінювати його до checkout.
+- Cart переживає refresh сторінки.
+- Checkout ще не створений.
+- Наступний implementation checkpoint: `Guest checkout`.
+
+### Перевірено
+
+- Frontend: `npm run build`
+- Frontend: `npm run lint`

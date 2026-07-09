@@ -1,12 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
-import { AlertCircle, ArrowLeft, ImageIcon, RefreshCw } from 'lucide-react'
+import {
+  AlertCircle,
+  ArrowLeft,
+  ImageIcon,
+  RefreshCw,
+  ShoppingCart,
+} from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 
+import { CartLink } from '../cart/CartLink'
+import { useCart } from '../cart/useCart'
 import { getProduct } from './api'
 import { formatPrice, resolveImageUrl } from './formatters'
 
 export function ProductDetailPage() {
   const { slug } = useParams()
+  const { addProduct } = useCart()
 
   const productQuery = useQuery({
     queryKey: ['product', slug],
@@ -23,9 +32,17 @@ export function ProductDetailPage() {
           <p className="eyebrow">Product</p>
           <h1>{product?.name ?? 'Product details'}</h1>
         </div>
-        <Link className="icon-button" to="/" title="Back to catalog" aria-label="Back to catalog">
-          <ArrowLeft aria-hidden="true" size={18} />
-        </Link>
+        <div className="header-actions">
+          <CartLink />
+          <Link
+            className="icon-button"
+            to="/"
+            title="Back to catalog"
+            aria-label="Back to catalog"
+          >
+            <ArrowLeft aria-hidden="true" size={18} />
+          </Link>
+        </div>
       </header>
 
       {productQuery.isLoading ? <ProductDetailLoading /> : null}
@@ -67,6 +84,16 @@ export function ProductDetailPage() {
                 <dd>{product.stock_quantity > 0 ? 'Available' : 'Unavailable'}</dd>
               </div>
             </dl>
+
+            <button
+              type="button"
+              className="primary-button"
+              onClick={() => addProduct(product)}
+              disabled={product.stock_quantity <= 0}
+            >
+              <ShoppingCart aria-hidden="true" size={18} />
+              Add to cart
+            </button>
           </div>
         </section>
       ) : null}

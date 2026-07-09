@@ -102,20 +102,20 @@ Checkpoint: `Add development catalog seed data`.
 
 Checkpoint: `Add product detail screen`.
 
-### 5. Client-side cart
+### 5. Client-side cart - готово
 
 Мета: покупець може зібрати кошик до checkout.
 
-- Додати `features/cart`.
-- Cart state з localStorage persistence.
-- Add to cart з catalog/detail.
-- Cart page або cart drawer.
-- Quantity update.
-- Remove item.
-- Cart totals з поточних product prices.
-- UI states для empty cart і unavailable product.
+- Додати `features/cart`. Готово.
+- Cart state з localStorage persistence. Готово.
+- Add to cart з catalog/detail. Готово.
+- Cart page або cart drawer. Готово.
+- Quantity update. Готово.
+- Remove item. Готово.
+- Cart totals з поточних product prices. Готово.
+- UI states для empty cart і unavailable product. Готово.
 
-Planned commit: `Add client-side cart flow`.
+Checkpoint: `Add client-side cart flow`.
 
 ### 6. Guest checkout
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 5: `Client-side cart`.
+Починаємо з checkpoint 6: `Guest checkout`.

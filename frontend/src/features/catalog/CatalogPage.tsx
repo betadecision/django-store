@@ -5,9 +5,12 @@ import {
   PackageSearch,
   RefreshCw,
   ShoppingBag,
+  ShoppingCart,
 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 
+import { CartLink } from '../cart/CartLink'
+import { useCart } from '../cart/useCart'
 import type { Product } from '../../shared/types/catalog'
 import { getCategories, getProducts } from './api'
 import { formatPrice, resolveImageUrl } from './formatters'
@@ -53,15 +56,18 @@ export function CatalogPage() {
           <p className="eyebrow">Storefront</p>
           <h1>Catalog</h1>
         </div>
-        <button
-          type="button"
-          className="icon-button"
-          onClick={refreshCatalog}
-          title="Refresh catalog"
-          aria-label="Refresh catalog"
-        >
-          <RefreshCw aria-hidden="true" size={18} />
-        </button>
+        <div className="header-actions">
+          <CartLink />
+          <button
+            type="button"
+            className="icon-button"
+            onClick={refreshCatalog}
+            title="Refresh catalog"
+            aria-label="Refresh catalog"
+          >
+            <RefreshCw aria-hidden="true" size={18} />
+          </button>
+        </div>
       </header>
 
       <section className="catalog-toolbar" aria-label="Catalog filters">
@@ -128,35 +134,50 @@ function ProductGrid({ products }: { products: Product[] }) {
 function ProductCard({ product }: { product: Product }) {
   const imageUrl = resolveImageUrl(product.image)
   const hasStock = product.stock_quantity > 0
+  const { addProduct } = useCart()
 
   return (
-    <Link className="product-card" to={`/products/${product.slug}`}>
-      <div className="product-media">
-        {imageUrl ? (
-          <img src={imageUrl} alt={product.name} loading="lazy" />
-        ) : (
-          <div className="product-media-fallback" aria-hidden="true">
-            <ImageIcon size={28} />
-          </div>
-        )}
-      </div>
-      <div className="product-body">
-        <div className="product-title-row">
-          <h3>{product.name}</h3>
-          <span className={hasStock ? 'stock-pill in-stock' : 'stock-pill'}>
-            {hasStock ? product.stock_quantity : 'Out'}
-          </span>
+    <article className="product-card">
+      <Link className="product-card-link" to={`/products/${product.slug}`}>
+        <div className="product-media">
+          {imageUrl ? (
+            <img src={imageUrl} alt={product.name} loading="lazy" />
+          ) : (
+            <div className="product-media-fallback" aria-hidden="true">
+              <ImageIcon size={28} />
+            </div>
+          )}
         </div>
-        <p className="product-category">{product.category.name}</p>
-        {product.description ? (
-          <p className="product-description">{product.description}</p>
-        ) : null}
-        <div className="product-footer">
+        <div className="product-body">
+          <div className="product-title-row">
+            <h3>{product.name}</h3>
+            <span className={hasStock ? 'stock-pill in-stock' : 'stock-pill'}>
+              {hasStock ? product.stock_quantity : 'Out'}
+            </span>
+          </div>
+          <p className="product-category">{product.category.name}</p>
+          {product.description ? (
+            <p className="product-description">{product.description}</p>
+          ) : null}
+        </div>
+      </Link>
+      <div className="product-footer">
+        <div>
           <strong>{formatPrice(product.price)}</strong>
           <span>{hasStock ? 'Available' : 'Unavailable'}</span>
         </div>
+        <button
+          type="button"
+          className="icon-button compact"
+          onClick={() => addProduct(product)}
+          disabled={!hasStock}
+          title="Add to cart"
+          aria-label={`Add ${product.name} to cart`}
+        >
+          <ShoppingCart aria-hidden="true" size={16} />
+        </button>
       </div>
-    </Link>
+    </article>
   )
 }
 
