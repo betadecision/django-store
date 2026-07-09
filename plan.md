@@ -78,17 +78,17 @@ Checkpoint: `Add order API validation tests`.
 
 Checkpoint: `Create React frontend skeleton`.
 
-### 3. Local demo data - наступний checkpoint
+### 3. Local demo data - готово
 
 Мета: швидко бачити реальний catalog UI без ручного набивання admin.
 
-- Додати Django management command для dev seed data.
-- Створити 2-3 категорії і кілька активних товарів.
-- Команда має бути повторюваною і не плодити дублікати.
-- Оновити README з командою.
-- Перевірити frontend з реальними товарами.
+- Додати Django management command для dev seed data. Готово.
+- Створити 2-3 категорії і кілька активних товарів. Готово.
+- Команда має бути повторюваною і не плодити дублікати. Готово.
+- Оновити README з командою. Готово.
+- Перевірити frontend з реальними товарами. Готово.
 
-Planned commit: `Add development catalog seed data`.
+Checkpoint: `Add development catalog seed data`.
 
 ### 4. Catalog storefront polish
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 3: `Local demo data`.
+Починаємо з checkpoint 4: `Catalog storefront polish`.

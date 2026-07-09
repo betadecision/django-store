@@ -143,3 +143,26 @@
 - Оновити README з командою seed.
 - Перевірити backend tests, frontend build і frontend lint.
 - Закомітити й запушити checkpoint: `Add development catalog seed data`.
+
+## 2026-07-09 - Local demo data
+
+### Зроблено
+
+- Додали management command `seed_dev_data`.
+- Команда створює повторювані dev catalog data:
+  - 3 категорії;
+  - 5 активних товарів.
+- Додали тест, що повторний запуск seed не створює дублікати.
+- Оновили README з командою:
+  - `uv run python project/manage.py seed_dev_data`
+
+### Поточний стан
+
+- Frontend catalog може показувати реальні локальні товари без ручного створення через admin.
+- Наступний implementation checkpoint: `Catalog storefront polish`.
+
+### Наступні кроки
+
+- Додати product detail route `/products/:slug`.
+- Додати link з product card на detail screen.
+- Додати кнопку add to cart на detail як підготовку до cart flow.

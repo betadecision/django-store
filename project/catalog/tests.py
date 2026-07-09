@@ -1,11 +1,12 @@
-from rest_framework.test import APIClient
-from rest_framework import status
-
 from decimal import Decimal
+from io import StringIO
 
+from django.core.management import call_command
 from django.db.models.deletion import ProtectedError
 from django.test import TestCase
 from django.urls import reverse
+from rest_framework import status
+from rest_framework.test import APIClient
 
 from .models import Category
 from .models import Product
@@ -108,5 +109,19 @@ class ProductAPITests(TestCase):
         url = reverse("product-detail", kwargs={"slug": "xduo"})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class SeedDevDataCommandTests(TestCase):
+    def test_seed_dev_data_creates_repeatable_catalog_data(self):
+        output = StringIO()
+
+        call_command("seed_dev_data", stdout=output)
+        call_command("seed_dev_data", stdout=output)
+
+        self.assertEqual(Category.objects.count(), 3)
+        self.assertEqual(Product.objects.count(), 5)
+        self.assertTrue(Category.objects.filter(slug="laptops", is_active=True).exists())
+        self.assertTrue(Product.objects.filter(slug="zenbook-air-14", is_active=True).exists())
+        self.assertIn("Seeded 3 categories and 5 products.", output.getvalue())
 
 

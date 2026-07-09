@@ -62,6 +62,12 @@ Apply migrations:
 uv run python project/manage.py migrate
 ```
 
+Seed demo catalog data:
+
+```bash
+uv run python project/manage.py seed_dev_data
+```
+
 Run development server:
 
 ```bash
