@@ -117,20 +117,20 @@ Checkpoint: `Add product detail screen`.
 
 Checkpoint: `Add client-side cart flow`.
 
-### 6. Guest checkout
+### 6. Guest checkout - готово
 
 Мета: користувач може оформити замовлення без акаунта.
 
-- Додати `features/checkout`.
-- Checkout route.
-- Form fields: email, full name, phone.
-- Client validation.
-- Submit через `POST /api/orders/`.
-- Success/confirmation screen з order id і total.
-- Error state, якщо backend відхилив order.
-- Очистити cart після успішного order.
+- Додати `features/checkout`. Готово.
+- Checkout route. Готово.
+- Form fields: email, full name, phone. Готово.
+- Client validation. Готово.
+- Submit через `POST /api/orders/`. Готово.
+- Success/confirmation screen з order id і total. Готово.
+- Error state, якщо backend відхилив order. Готово.
+- Очистити cart після успішного order. Готово.
 
-Planned commit: `Add guest checkout flow`.
+Checkpoint: `Add guest checkout flow`.
 
 ### 7. Backend order/admin hardening
 
@@ -190,4 +190,4 @@ Planned commit: `Document MVP runbook`.
 
 ## Поточний наступний крок
 
-Починаємо з checkpoint 6: `Guest checkout`.
+Починаємо з checkpoint 7: `Backend order/admin hardening`.

@@ -63,6 +63,9 @@ export function CartPage() {
               <Trash2 aria-hidden="true" size={16} />
               Clear cart
             </button>
+            <Link className="primary-button" to="/checkout">
+              Checkout
+            </Link>
           </aside>
         </section>
       )}

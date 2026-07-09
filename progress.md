@@ -221,3 +221,39 @@
 
 - Frontend: `npm run build`
 - Frontend: `npm run lint`
+
+## 2026-07-09 - Guest checkout
+
+### Зроблено
+
+- Додали `features/checkout`.
+- Додали checkout API helper для `POST /api/orders/`.
+- Додали route `/checkout`.
+- Додали checkout form:
+  - email;
+  - full name;
+  - phone.
+- Checkout створює order з cart items.
+- Після успішного order cart очищається.
+- Додали route `/checkout/success`.
+- Success screen показує order id і total.
+- Cart page тепер веде на checkout.
+
+### Поточний стан
+
+- Базовий commerce flow уже працює локально:
+  - catalog;
+  - product detail;
+  - cart;
+  - guest checkout;
+  - order creation.
+- Наступний implementation checkpoint: `Backend order/admin hardening`.
+
+### Перевірено
+
+- Backend: `uv run python project/manage.py test catalog orders`
+- Frontend: `npm run build`
+- Frontend: `npm run lint`
+- HTTP: `POST /api/orders/`
+- HTTP: `GET /checkout`
+- HTTP: `GET /checkout/success?order=1&total=39999.00`
