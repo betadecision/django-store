@@ -1,4 +1,7 @@
 from django.db import transaction
+from django.db.models import F
+
+from catalog.models import Product
 
 from .models import Order, OrderItem
 
@@ -12,7 +15,7 @@ def create_order(*, email, full_name, phone, items):
     order_items = []
 
     for item in items:
-        product = item["product"]
+        product = Product.objects.select_for_update().get(pk=item["product"].pk)
         quantity = item["quantity"]
 
         if quantity < 1:
@@ -34,6 +37,9 @@ def create_order(*, email, full_name, phone, items):
                 line_total=line_total,
             )
         )
+        Product.objects.filter(pk=product.pk).update(
+            stock_quantity=F("stock_quantity") - quantity
+        )
 
     order = Order.objects.create(
         email=email,
@@ -50,7 +56,18 @@ def create_order(*, email, full_name, phone, items):
     return order
 
 
+@transaction.atomic
 def cancel_order(order):
+    order = Order.objects.select_for_update().get(pk=order.pk)
+
+    if order.status == Order.Status.CANCELLED:
+        return order
+
+    for item in order.items.select_related("product"):
+        Product.objects.filter(pk=item.product_id).update(
+            stock_quantity=F("stock_quantity") + item.quantity
+        )
+
     order.status = Order.Status.CANCELLED
     order.save(update_fields=["status", "updated_at"])
     return order

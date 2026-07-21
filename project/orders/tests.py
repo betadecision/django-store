@@ -97,12 +97,38 @@ class OrderModelTests(TestCase):
         self.assertEqual(zenbook_item.quantity, 2)
         self.assertEqual(zenbook_item.line_total, Decimal("20.60"))
 
+        self.product.refresh_from_db()
+        self.product_2.refresh_from_db()
+
+        self.assertEqual(self.product.stock_quantity, 8)
+        self.assertEqual(self.product_2.stock_quantity, 8)
+
     def test_cancel_order_marks_order_as_cancelled(self):
         cancel_order(self.order)
 
         self.order.refresh_from_db()
 
         self.assertEqual(self.order.status, Order.Status.CANCELLED)
+
+    def test_cancel_order_restores_stock_quantity_once(self):
+        order = create_order(
+            email="decisionbeta@gmail.com",
+            full_name="eugen",
+            phone="3603045345",
+            items=[
+                {"product": self.product, "quantity": self.quantity},
+            ],
+        )
+
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.stock_quantity, 8)
+
+        cancel_order(order)
+        cancel_order(order)
+
+        self.product.refresh_from_db()
+
+        self.assertEqual(self.product.stock_quantity, 10)
 
     def test_create_order_requires_items(self):
         with self.assertRaises(ValueError):
@@ -166,6 +192,9 @@ class OrderAPITests(TestCase):
         self.assertEqual(response.data["id"], order.id)
         self.assertEqual(response.data["status"], Order.Status.NEW)
         self.assertEqual(response.data["total_amount"], "20.60")
+
+        self.product.refresh_from_db()
+        self.assertEqual(self.product.stock_quantity, 3)
 
     def test_create_order_endpoint_requires_items(self):
         response = self.client.post(
